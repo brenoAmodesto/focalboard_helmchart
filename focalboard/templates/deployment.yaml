@@ -24,7 +24,13 @@ spec:
           volumeMounts:
             - mountPath: /data
               name: data
+            - name: config
+              mountPath: /opt/focalboard/config.json
+              subPath: config.json
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: focalboard-pvc
+        - name: config
+          configMap:
+            name: focalboard-config
