@@ -12,13 +12,6 @@ spec:
       labels:
         app: focalboard
     spec:
-      initContainers:
-        - name: init-data-dir
-          image: busybox
-          command: ["sh", "-c", "mkdir -p /mnt/data"]
-          volumeMounts:
-            - name: data
-              mountPath: /mnt/data
       containers:
         - name: focalboard
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -29,7 +22,7 @@ spec:
             - name: FOCALBOARD_PORT
               value: "8000"
           volumeMounts:
-            - mountPath: /opt/focalboard/data
+            - mountPath: /data
               name: data
       volumes:
         - name: data
