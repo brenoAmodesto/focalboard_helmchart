@@ -22,7 +22,7 @@ spec:
             - name: FOCALBOARD_PORT
               value: "8000"
           volumeMounts:
-            - mountPath: /opt/focalboard/data
+            - mountPath: /opt/focalboard
               name: data
       volumes:
         - name: data
