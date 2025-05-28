@@ -21,6 +21,6 @@ ingress:
 
 persistence:
   enabled: true
-  storageClass: azurefile
+  storageClass: managed-premium
   accessMode: ReadWriteOnce
   size: 5Gi
