@@ -12,6 +12,18 @@ spec:
       labels:
         app: focalboard
     spec:
+      initContainers:
+        - name: init-db
+          image: nouchka/sqlite3
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              if [ ! -f /data/focalboard.db ]; then
+                sqlite3 /data/focalboard.db "VACUUM;";
+              fi
+          volumeMounts:
+            - name: data
+              mountPath: /data
       containers:
         - name: focalboard
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -22,7 +34,7 @@ spec:
             - name: FOCALBOARD_PORT
               value: "8000"
           volumeMounts:
-            - mountPath: /data
+            - mountPath: /opt/focalboard/data
               name: data
       volumes:
         - name: data
