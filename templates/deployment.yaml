@@ -12,6 +12,8 @@ spec:
       labels:
         app: focalboard
     spec:
+      securityContext:
+        fsGroup: 0
       containers:
         - name: focalboard
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -21,8 +23,12 @@ spec:
           env:
             - name: FOCALBOARD_PORT
               value: "8000"
+          securityContext:
+            runAsUser: 0
+            runAsGroup: 0
+            runAsNonRoot: false
           volumeMounts:
-            - mountPath: /data
+            - mountPath: /opt/focalboard/data
               name: data
       volumes:
         - name: data
